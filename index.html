@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Aura ✨ A Decade of Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink-100: #FFF5F7;
+            --pink-200: #FED7E2;
+            --pink-300: #FBB6CE;
+            --pink-400: #F687B3;
+            --pink-500: #ED64A6;
+            --pink-600: #D53F8C;
+            --rose-gold: #B76E79;
+            --cream: #FFFAF5;
+            --text-dark: #4A3F47;
+            --text-light: #8B7A82;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sparkle animation */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--pink-400);
+            border-radius: 50%;
+            animation: sparkle 3s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--pink-400);
+        }
+
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--pink-100) 0%, var(--cream) 30%, var(--cream) 100%);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--pink-600);
+            letter-spacing: 2px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--rose-gold);
+            margin-top: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .decade-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+            color: white;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            box-shadow: 0 4px 15px rgba(237, 100, 166, 0.3);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 20px 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            border: 2px solid var(--pink-300);
+            background: white;
+            border-radius: 30px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--pink-500);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(237, 100, 166, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 0 25px 40px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--pink-600);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Quiz Section */
+        .quiz-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 40px rgba(183, 110, 121, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            font-size: 0.75rem;
+            color: var(--rose-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 16px 20px;
+            border: 2px solid var(--pink-200);
+            border-radius: 15px;
+            background: var(--pink-100);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .option:hover {
+            border-color: var(--pink-400);
+            background: var(--pink-200);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--pink-500);
+            background: linear-gradient(135deg, var(--pink-300), var(--pink-400));
+            color: white;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pink-200);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--pink-500);
+            transform: scale(1.2);
+        }
+
+        .progress-dot.completed {
+            background: var(--pink-400);
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(213, 63, 140, 0.4);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Results Section */
+        .result-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(183, 110, 121, 0.15);
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .result-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--pink-600);
+            margin-bottom: 10px;
+        }
+
+        .result-subtitle {
+            font-size: 0.9rem;
+            color: var(--rose-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .result-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        .result-traits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .trait-tag {
+            padding: 8px 16px;
+            background: var(--pink-100);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--pink-600);
+        }
+
+        .retake-btn {
+            padding: 14px 35px;
+            border: 2px solid var(--pink-400);
+            background: transparent;
+            border-radius: 30px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--pink-500);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .retake-btn:hover {
+            background: var(--pink-400);
+            color: white;
+        }
+
+        /* Quotes Section */
+        .quote-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(183, 110, 121, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            color: var(--pink-100);
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.85rem;
+            color: var(--rose-gold);
+            letter-spacing: 2px;
+        }
+
+        .quote-type {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 8px 20px;
+            background: var(--pink-100);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--pink-500);
+            letter-spacing: 1px;
+        }
+
+        .new-quote-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--pink-400), var(--pink-600));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .new-quote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(213, 63, 140, 0.4);
+        }
+
+        /* Friends Section */
+        .friends-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .friend-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(183, 110, 121, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .friend-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .friend-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-300), var(--pink-500), var(--rose-gold));
+        }
+
+        .friend-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .friend-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--pink-200), var(--pink-300));
+        }
+
+        .friend-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--pink-600);
+        }
+
+        .friend-title {
+            font-size: 0.8rem;
+            color: var(--rose-gold);
+            letter-spacing: 1px;
+        }
+
+        .friend-bio {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .friend-loves {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .love-tag {
+            padding: 6px 14px;
+            background: var(--pink-100);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--pink-600);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .footer-heart {
+            color: var(--pink-500);
+            animation: pulse 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sparkles Background -->
+    <div class="sparkles" id="sparkles"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">Pink Aura</h1>
+            <p class="tagline">A Celebration of Us</p>
+            <span class="decade-badge">✨ 10 Years of Friendship • 2015-2025 ✨</span>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="quiz">Quiz</button>
+            <button class="nav-btn" data-section="quotes">Daily Quotes</button>
+            <button class="nav-btn" data-section="friends">Our Squad</button>
+        </nav>
+
+        <!-- Quiz Section -->
+        <section class="section active" id="quiz">
+            <h2 class="section-title">What's Your Beauty Aura?</h2>
+            
+            <div class="quiz-card" id="quiz-container">
+                <p class="question-number">Question <span id="q-num">1</span> of 8</p>
+                <p class="question-text" id="question-text"></p>
+                <div class="options" id="options"></div>
+                <div class="quiz-progress" id="progress"></div>
+                <button class="next-btn" id="next-btn" disabled>Next →</button>
+            </div>
+
+            <div class="result-card hidden" id="result-container">
+                <div class="result-emoji" id="result-emoji">💖</div>
+                <h3 class="result-title" id="result-title"></h3>
+                <p class="result-subtitle" id="result-subtitle"></p>
+                <p class="result-description" id="result-description"></p>
+                <div class="result-traits" id="result-traits"></div>
+                <button class="retake-btn" id="retake-btn">Take Quiz Again</button>
+            </div>
+        </section>
+
+        <!-- Quotes Section -->
+        <section class="section" id="quotes">
+            <h2 class="section-title">Today's Inspiration</h2>
+            
+            <div class="quote-card">
+                <p class="quote-text" id="quote-text"></p>
+                <p class="quote-author" id="quote-author"></p>
+                <span class="quote-type" id="quote-type"></span>
+            </div>
+            
+            <button class="new-quote-btn" id="new-quote-btn">✨ New Inspiration</button>
+        </section>
+
+        <!-- Friends Section -->
+        <section class="section" id="friends">
+            <h2 class="section-title">Our Beautiful Squad</h2>
+            
+            <div class="friends-grid">
+                <div class="friend-card">
+                    <div class="friend-header">
+                        <div class="friend-avatar">🍷</div>
+                        <div>
+                            <h3 class="friend-name">Valerie</h3>
+                            <p class="friend-title">The Pillar of Strength</p>
+                        </div>
+                    </div>
+                    <p class="friend-bio">Behind that serious exterior is the warmest heart. She's the one who shows up, always. Wine in hand, dark humor ready, and loyalty that runs deeper than any Italian vineyard she's visited.</p>
+                    <div class="friend-loves">
+                        <span class="love-tag">🇮🇹 Italy</span>
+                        <span class="love-tag">🍷 Wine</span>
+                        <span class="love-tag">🧘‍♀️ Pilates</span>
+                        <span class="love-tag">🔪 Dexter</span>
+                        <span class="love-tag">😈 Dark Humor</span>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-header">
+                        <div class="friend-avatar">🌍</div>
+                        <div>
+                            <h3 class="friend-name">Melanie</h3>
+                            <p class="friend-title">The Adventurous Planner</p>
+                        </div>
+                    </div>
+                    <p class="friend-bio">Scared of everything but does it anyway — that's true bravery. The ultimate trip planner, game organizer, and souvenir queen. Currently in her dog mom era with Milo, and we're here for it! 🐕</p>
+                    <div class="friend-loves">
+                        <span class="love-tag">✈️ Travel</span>
+                        <span class="love-tag">🐶 Milo</span>
+                        <span class="love-tag">🎵 Concerts</span>
+                        <span class="love-tag">🎲 Games</span>
+                        <span class="love-tag">👨‍👩‍👧 Family</span>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-header">
+                        <div class="friend-avatar">🌙</div>
+                        <div>
+                            <h3 class="friend-name">Camille</h3>
+                            <p class="friend-title">The Stylish Night Owl</p>
+                        </div>
+                    </div>
+                    <p class="friend-bio">Fashionably late and unapologetically herself. In her "yes to everything" era, this independent queen proves that restrictions are just opportunities for creativity. Morning person? Never heard of her.</p>
+                    <div class="friend-loves">
+                        <span class="love-tag">🌙 Night Owl</span>
+                        <span class="love-tag">👗 Style</span>
+                        <span class="love-tag">🍰 Sweets</span>
+                        <span class="love-tag">💪 Independence</span>
+                        <span class="love-tag">👨‍👩‍👧 Family</span>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-header">
+                        <div class="friend-avatar">💝</div>
+                        <div>
+                            <h3 class="friend-name">You</h3>
+                            <p class="friend-title">The Heart Who Made This</p>
+                        </div>
+                    </div>
+                    <p class="friend-bio">The creative soul who thought to celebrate a decade of friendship with something this special. The glue that holds us together, reminding us that some connections are forever.</p>
+                    <div class="friend-loves">
+                        <span class="love-tag">💕 Friendship</span>
+                        <span class="love-tag">🎨 Creativity</span>
+                        <span class="love-tag">✨ Making Magic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with <span class="footer-heart">♥</span> for the best friends ever</p>
+            <p style="margin-top: 8px;">2015 → Forever</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sparkles
+        function createSparkles() {
+            const container = document.getElementById('sparkles');
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.width = (Math.random() * 6 + 4) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                container.appendChild(sparkle);
+            }
+        }
+        createSparkles();
+
+        // Navigation
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(btn.dataset.section).classList.add('active');
+            });
+        });
+
+        // Quiz Data
+        const questions = [
+            {
+                question: "It's Friday night. What's your ideal plan?",
+                options: [
+                    { text: "Wine, true crime documentary, and peace", type: "valerie" },
+                    { text: "Planning next week's adventure while cuddling with my pet", type: "melanie" },
+                    { text: "Starting the night at 10pm because that's when I come alive", type: "camille" },
+                    { text: "A cozy get-together with my favorite people", type: "you" }
+                ]
+            },
+            {
+                question: "How do you show love to your friends?",
+                options: [
+                    { text: "I'm there when it matters. Always. No questions asked.", type: "valerie" },
+                    { text: "Planning unforgettable experiences and bringing back the best gifts", type: "melanie" },
+                    { text: "Being my authentic self and encouraging them to do the same", type: "camille" },
+                    { text: "Thoughtful surprises that show I truly know them", type: "you" }
+                ]
+            },
+            {
+                question: "Pick a travel vibe:",
+                options: [
+                    { text: "Italian countryside, good wine, rich history", type: "valerie" },
+                    { text: "Somewhere new! I have a list of 50 places to visit", type: "melanie" },
+                    { text: "Anywhere with great nightlife and amazing food", type: "camille" },
+                    { text: "Wherever my friends are going — it's about the company", type: "you" }
+                ]
+            },
+            {
+                question: "What's your morning like?",
+                options: [
+                    { text: "Early pilates, then conquering the day", type: "valerie" },
+                    { text: "Up with my alarm, walking my fur baby, ready for anything", type: "melanie" },
+                    { text: "Morning? I just went to sleep. Ask me again at noon.", type: "camille" },
+                    { text: "Depends on the day, but always with intention", type: "you" }
+                ]
+            },
+            {
+                question: "Your humor style is:",
+                options: [
+                    { text: "Dark and unexpected — if they're not slightly shocked, I failed", type: "valerie" },
+                    { text: "Silly and fun — I love making people laugh at game nights", type: "melanie" },
+                    { text: "Dry wit with a fashion statement", type: "camille" },
+                    { text: "Warm and inclusive — I want everyone to feel in on the joke", type: "you" }
+                ]
+            },
+            {
+                question: "Choose a self-care ritual:",
+                options: [
+                    { text: "A challenging workout that makes me feel powerful", type: "valerie" },
+                    { text: "Quality time with family and my pet", type: "melanie" },
+                    { text: "A sweet treat and staying up late doing what I love", type: "camille" },
+                    { text: "Creating something beautiful for people I love", type: "you" }
+                ]
+            },
+            {
+                question: "People often describe you as:",
+                options: [
+                    { text: "Strong, reliable, secretly the sweetest", type: "valerie" },
+                    { text: "Adventurous, fun, the best at organizing things", type: "melanie" },
+                    { text: "Stylish, independent, living life on my own terms", type: "camille" },
+                    { text: "Thoughtful, creative, the heart of the group", type: "you" }
+                ]
+            },
+            {
+                question: "What matters most in friendship?",
+                options: [
+                    { text: "Loyalty that doesn't waver, even when times are hard", type: "valerie" },
+                    { text: "Shared adventures and creating memories together", type: "melanie" },
+                    { text: "Accepting each other exactly as we are", type: "camille" },
+                    { text: "The little moments that add up to a lifetime", type: "you" }
+                ]
+            }
+        ];
+
+        const results = {
+            valerie: {
+                emoji: "🍷",
+                title: "The Quiet Storm",
+                subtitle: "Rare Beauty: Soft Pinch in \"Trust\" • Sky High: Original",
+                description: "You're the friend everyone can count on. Behind your composed exterior is an incredibly warm heart that loves deeply. Your strength isn't loud — it's steady, reliable, and always there when it matters. You appreciate the finer things: good wine, sharp wit, and loyalty that runs deep.",
+                traits: ["Loyal", "Strong", "Warm-hearted", "Witty", "Dependable"]
+            },
+            melanie: {
+                emoji: "🌍",
+                title: "The Joyful Explorer",
+                subtitle: "Rare Beauty: Soft Pinch in \"Joy\" • Sky High: Coral",
+                description: "Brave doesn't mean fearless — it means doing it scared, and that's exactly who you are. You bring the energy, the plans, the games, and somehow always find the perfect souvenir. Your zest for life is contagious, and your love for family (fur babies included!) makes you the heart everyone wants to be around.",
+                traits: ["Adventurous", "Brave", "Organized", "Loving", "Fun"]
+            },
+            camille: {
+                emoji: "🌙",
+                title: "The Midnight Muse",
+                subtitle: "Rare Beauty: Soft Pinch in \"Bliss\" • Sky High: Black",
+                description: "You've mastered the art of being unapologetically yourself. Fashionably late? It's called making an entrance. Your independence inspires others, and your ability to find joy in any situation (and any menu!) is a superpower. The night is young when you arrive.",
+                traits: ["Independent", "Stylish", "Adaptable", "Authentic", "Night Owl"]
+            },
+            you: {
+                emoji: "💝",
+                title: "The Radiant Heart",
+                subtitle: "Rare Beauty: Soft Pinch in \"Love\" • Sky High: Pink",
+                description: "You're the one who remembers the little things, who shows up with thoughtful gestures that make people feel truly seen. Your creativity and warmth are the glue that holds your friendships together. You don't just have friends — you cultivate a chosen family.",
+                traits: ["Creative", "Thoughtful", "Warm", "Connector", "Loyal"]
+            }
+        };
+
+        let currentQuestion = 0;
+        let answers = { valerie: 0, melanie: 0, camille: 0, you: 0 };
+        let selectedOption = null;
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('q-num').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = q.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt, i) => {
+                const optEl = document.createElement('div');
+                optEl.className = 'option';
+                optEl.textContent = opt.text;
+                optEl.addEventListener('click', () => selectOption(i, opt.type));
+                optionsContainer.appendChild(optEl);
+            });
+
+            // Progress dots
+            const progress = document.getElementById('progress');
+            progress.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i < currentQuestion) dot.classList.add('completed');
+                if (i === currentQuestion) dot.classList.add('active');
+                progress.appendChild(dot);
+            }
+
+            selectedOption = null;
+            document.getElementById('next-btn').disabled = true;
+        }
+
+        function selectOption(index, type) {
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                opt.classList.toggle('selected', i === index);
+            });
+            selectedOption = type;
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (selectedOption) {
+                answers[selectedOption]++;
+                currentQuestion++;
+                
+                if (currentQuestion >= questions.length) {
+                    showResult();
+                } else {
+                    renderQuestion();
+                }
+            }
+        });
+
+        function showResult() {
+            const winner = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
+            const result = results[winner];
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+
+            document.getElementById('result-emoji').textContent = result.emoji;
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-subtitle').textContent = result.subtitle;
+            document.getElementById('result-description').textContent = result.description;
+
+            const traitsContainer = document.getElementById('result-traits');
+            traitsContainer.innerHTML = '';
+            result.traits.forEach(trait => {
+                const tag = document.createElement('span');
+                tag.className = 'trait-tag';
+                tag.textContent = trait;
+                traitsContainer.appendChild(tag);
+            });
+        }
+
+        document.getElementById('retake-btn').addEventListener('click', () => {
+            currentQuestion = 0;
+            answers = { valerie: 0, melanie: 0, camille: 0, you: 0 };
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            renderQuestion();
+        });
+
+        renderQuestion();
+
+        // Quotes
+        const quotes = [
+            // Motivational
+            { text: "She remembered who she was and the game changed.", author: "Lalah Delia", type: "✨ Motivation" },
+            { text: "You are allowed to be both a masterpiece and a work in progress.", author: "Sophia Bush", type: "✨ Motivation" },
+            { text: "The woman who does not require validation from anyone is the most feared individual on the planet.", author: "Mohadesa Najumi", type: "✨ Motivation" },
+            { text: "Be the energy you want to attract.", author: "Unknown", type: "✨ Motivation" },
+            { text: "You're not too much. They're just not enough.", author: "Unknown", type: "✨ Motivation" },
+            { text: "Confidence isn't walking into a room thinking you're better than everyone. It's walking in not having to compare yourself to anyone at all.", author: "Unknown", type: "✨ Motivation" },
+            { text: "Your self-worth is determined by you. You don't have to depend on someone telling you who you are.", author: "Beyoncé", type: "✨ Motivation" },
+            { text: "The most alluring thing a woman can have is confidence.", author: "Beyoncé", type: "✨ Motivation" },
+            
+            // Friendship
+            { text: "Friendship isn't about who you've known the longest. It's about who walked into your life and said 'I'm here for you' and proved it.", author: "Unknown", type: "💕 Friendship" },
+            { text: "Good friends are like stars. You don't always see them, but you know they're always there.", author: "Unknown", type: "💕 Friendship" },
+            { text: "A true friend is someone who thinks you're a good egg even though they know you're slightly cracked.", author: "Bernard Meltzer", type: "💕 Friendship" },
+            { text: "Friends are the family we choose for ourselves.", author: "Edna Buchanan", type: "💕 Friendship" },
+            { text: "Real queens fix each other's crowns.", author: "Unknown", type: "💕 Friendship" },
+            { text: "There is nothing I would not do for those who are really my friends.", author: "Jane Austen", type: "💕 Friendship" },
+            { text: "Some people arrive and make such a beautiful impact on your life, you can barely remember what life was like without them.", author: "Anna Taylor", type: "💕 Friendship" },
+            { text: "The most beautiful discovery true friends make is that they can grow separately without growing apart.", author: "Elisabeth Foley", type: "💕 Friendship" },
+            
+            // Self-Love
+            { text: "Talk to yourself like you would to someone you love.", author: "Brené Brown", type: "💗 Self-Love" },
+            { text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha", type: "💗 Self-Love" },
+            { text: "You are enough just as you are.", author: "Meghan Markle", type: "💗 Self-Love" },
+            { text: "How you love yourself is how you teach others to love you.", author: "Rupi Kaur", type: "💗 Self-Love" },
+            { text: "Beauty begins the moment you decide to be yourself.", author: "Coco Chanel", type: "💗 Self-Love" },
+            { text: "Self-care is not selfish. You cannot serve from an empty vessel.", author: "Eleanor Brown", type: "💗 Self-Love" },
+            
+            // Custom Friendship Messages
+            { text: "10 years and countless memories later — here's to the friends who became family.", author: "For Us 💕", type: "🌟 Our Story" },
+            { text: "From 2015 to forever. Some friendships are just meant to be.", author: "For Us 💕", type: "🌟 Our Story" },
+            { text: "Through every season, every change, every adventure — we stayed.", author: "For Us 💕", type: "🌟 Our Story" },
+            { text: "Four different women, one unbreakable bond.", author: "For Us 💕", type: "🌟 Our Story" },
+            { text: "The best things in life aren't things. They're your people.", author: "For Us 💕", type: "🌟 Our Story" }
+        ];
+
+        function showRandomQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote-text').textContent = quote.text;
+            document.getElementById('quote-author').textContent = "— " + quote.author;
+            document.getElementById('quote-type').textContent = quote.type;
+        }
+
+        showRandomQuote();
+        document.getElementById('new-quote-btn').addEventListener('click', showRandomQuote);
+    </script>
+</body>
+</html>
