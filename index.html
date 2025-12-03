@@ -171,10 +171,19 @@
             display: none;
             padding: 0 25px 40px;
             animation: fadeInUp 0.5s ease-out;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
 
         .section.active {
             display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 0 20px 30px;
+            }
         }
 
         .section-title {
@@ -534,6 +543,58 @@
         .hidden {
             display: none !important;
         }
+
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Focus styles for keyboard navigation */
+        .nav-btn:focus,
+        .option:focus,
+        .next-btn:focus,
+        .retake-btn:focus,
+        .new-quote-btn:focus {
+            outline: 3px solid var(--pink-500);
+            outline-offset: 2px;
+        }
+
+        /* Performance optimizations */
+        .sparkle,
+        .result-emoji,
+        .footer-heart {
+            will-change: transform;
+        }
+
+        /* Additional responsive improvements */
+        @media (max-width: 430px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 10px 16px;
+            }
+
+            .quiz-card,
+            .result-card,
+            .quote-card {
+                padding: 25px 20px;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -549,55 +610,55 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="nav">
-            <button class="nav-btn active" data-section="quiz">Quiz</button>
-            <button class="nav-btn" data-section="quotes">Daily Quotes</button>
-            <button class="nav-btn" data-section="friends">Our Squad</button>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <button class="nav-btn active" data-section="quiz" aria-label="Navigate to Quiz section" aria-pressed="true">Quiz</button>
+            <button class="nav-btn" data-section="quotes" aria-label="Navigate to Daily Quotes section" aria-pressed="false">Daily Quotes</button>
+            <button class="nav-btn" data-section="friends" aria-label="Navigate to Our Squad section" aria-pressed="false">Our Squad</button>
         </nav>
 
         <!-- Quiz Section -->
-        <section class="section active" id="quiz">
-            <h2 class="section-title">What's Your Beauty Aura?</h2>
-            
-            <div class="quiz-card" id="quiz-container">
-                <p class="question-number">Question <span id="q-num">1</span> of 8</p>
-                <p class="question-text" id="question-text"></p>
-                <div class="options" id="options"></div>
-                <div class="quiz-progress" id="progress"></div>
-                <button class="next-btn" id="next-btn" disabled>Next →</button>
+        <section class="section active" id="quiz" aria-labelledby="quiz-title">
+            <h2 class="section-title" id="quiz-title">What's Your Beauty Aura?</h2>
+
+            <div class="quiz-card" id="quiz-container" role="form" aria-label="Beauty aura quiz">
+                <p class="question-number" aria-live="polite">Question <span id="q-num">1</span> of 8</p>
+                <p class="question-text" id="question-text" role="heading" aria-level="3"></p>
+                <div class="options" id="options" role="radiogroup" aria-label="Answer options"></div>
+                <div class="quiz-progress" id="progress" aria-label="Quiz progress" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="1"></div>
+                <button class="next-btn" id="next-btn" disabled aria-label="Next question">Next →</button>
             </div>
 
-            <div class="result-card hidden" id="result-container">
-                <div class="result-emoji" id="result-emoji">💖</div>
+            <div class="result-card hidden" id="result-container" role="region" aria-label="Quiz results" aria-live="polite">
+                <div class="result-emoji" id="result-emoji" aria-hidden="true">💖</div>
                 <h3 class="result-title" id="result-title"></h3>
                 <p class="result-subtitle" id="result-subtitle"></p>
                 <p class="result-description" id="result-description"></p>
-                <div class="result-traits" id="result-traits"></div>
-                <button class="retake-btn" id="retake-btn">Take Quiz Again</button>
+                <div class="result-traits" id="result-traits" aria-label="Personality traits"></div>
+                <button class="retake-btn" id="retake-btn" aria-label="Retake the quiz">Take Quiz Again</button>
             </div>
         </section>
 
         <!-- Quotes Section -->
-        <section class="section" id="quotes">
-            <h2 class="section-title">Today's Inspiration</h2>
-            
-            <div class="quote-card">
+        <section class="section" id="quotes" aria-labelledby="quotes-title">
+            <h2 class="section-title" id="quotes-title">Today's Inspiration</h2>
+
+            <div class="quote-card" role="article" aria-live="polite">
                 <p class="quote-text" id="quote-text"></p>
                 <p class="quote-author" id="quote-author"></p>
                 <span class="quote-type" id="quote-type"></span>
             </div>
-            
-            <button class="new-quote-btn" id="new-quote-btn">✨ New Inspiration</button>
+
+            <button class="new-quote-btn" id="new-quote-btn" aria-label="Generate new inspirational quote">✨ New Inspiration</button>
         </section>
 
         <!-- Friends Section -->
-        <section class="section" id="friends">
-            <h2 class="section-title">Our Beautiful Squad</h2>
-            
-            <div class="friends-grid">
-                <div class="friend-card">
+        <section class="section" id="friends" aria-labelledby="friends-title">
+            <h2 class="section-title" id="friends-title">Our Beautiful Squad</h2>
+
+            <div class="friends-grid" role="list">
+                <div class="friend-card" role="listitem">
                     <div class="friend-header">
-                        <div class="friend-avatar">🍷</div>
+                        <div class="friend-avatar" aria-hidden="true">🍷</div>
                         <div>
                             <h3 class="friend-name">Valerie</h3>
                             <p class="friend-title">The Pillar of Strength</p>
@@ -613,9 +674,9 @@
                     </div>
                 </div>
 
-                <div class="friend-card">
+                <div class="friend-card" role="listitem">
                     <div class="friend-header">
-                        <div class="friend-avatar">🌍</div>
+                        <div class="friend-avatar" aria-hidden="true">🌍</div>
                         <div>
                             <h3 class="friend-name">Melanie</h3>
                             <p class="friend-title">The Adventurous Planner</p>
@@ -631,9 +692,9 @@
                     </div>
                 </div>
 
-                <div class="friend-card">
+                <div class="friend-card" role="listitem">
                     <div class="friend-header">
-                        <div class="friend-avatar">🌙</div>
+                        <div class="friend-avatar" aria-hidden="true">🌙</div>
                         <div>
                             <h3 class="friend-name">Camille</h3>
                             <p class="friend-title">The Stylish Night Owl</p>
@@ -649,11 +710,11 @@
                     </div>
                 </div>
 
-                <div class="friend-card">
+                <div class="friend-card" role="listitem">
                     <div class="friend-header">
-                        <div class="friend-avatar">💝</div>
+                        <div class="friend-avatar" aria-hidden="true">💝</div>
                         <div>
-                            <h3 class="friend-name">You</h3>
+                            <h3 class="friend-name">Zacha</h3>
                             <p class="friend-title">The Heart Who Made This</p>
                         </div>
                     </div>
@@ -675,34 +736,100 @@
     </div>
 
     <script>
-        // Sparkles
-        function createSparkles() {
-            const container = document.getElementById('sparkles');
-            for (let i = 0; i < 30; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.top = Math.random() * 100 + '%';
-                sparkle.style.animationDelay = Math.random() * 3 + 's';
-                sparkle.style.width = (Math.random() * 6 + 4) + 'px';
-                sparkle.style.height = sparkle.style.width;
-                container.appendChild(sparkle);
+        // Constants
+        const STORAGE_KEYS = {
+            LAST_RESULT: 'pinkAura_lastResult',
+            QUIZ_PROGRESS: 'pinkAura_quizProgress'
+        };
+
+        const SPARKLE_COUNT = 30;
+        const TOTAL_QUESTIONS = 8;
+
+        // Utility Functions
+        const getElement = (id) => document.getElementById(id);
+        const getAllElements = (selector) => document.querySelectorAll(selector);
+
+        // LocalStorage utilities
+        const storage = {
+            get: (key) => {
+                try {
+                    const item = localStorage.getItem(key);
+                    return item ? JSON.parse(item) : null;
+                } catch (e) {
+                    console.error('Error reading from localStorage:', e);
+                    return null;
+                }
+            },
+            set: (key, value) => {
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } catch (e) {
+                    console.error('Error writing to localStorage:', e);
+                }
+            },
+            remove: (key) => {
+                try {
+                    localStorage.removeItem(key);
+                } catch (e) {
+                    console.error('Error removing from localStorage:', e);
+                }
             }
-        }
+        };
+
+        // Sparkles with performance optimization
+        const createSparkles = () => {
+            const container = getElement('sparkles');
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < SPARKLE_COUNT; i++) {
+                const sparkle = document.createElement('div');
+                const size = Math.random() * 6 + 4;
+
+                sparkle.className = 'sparkle';
+                Object.assign(sparkle.style, {
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                    width: `${size}px`,
+                    height: `${size}px`
+                });
+
+                fragment.appendChild(sparkle);
+            }
+
+            container.appendChild(fragment);
+        };
         createSparkles();
 
-        // Navigation
-        const navBtns = document.querySelectorAll('.nav-btn');
-        const sections = document.querySelectorAll('.section');
+        // Navigation with improved accessibility
+        const navBtns = getAllElements('.nav-btn');
+        const sections = getAllElements('.section');
 
-        navBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                navBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                sections.forEach(s => s.classList.remove('active'));
-                document.getElementById(btn.dataset.section).classList.add('active');
+        const switchSection = (sectionId) => {
+            // Update nav buttons
+            navBtns.forEach(btn => {
+                const isActive = btn.dataset.section === sectionId;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-pressed', isActive);
             });
+
+            // Update sections with smooth transition
+            sections.forEach(section => {
+                const isActive = section.id === sectionId;
+                if (isActive) {
+                    section.classList.add('active');
+                    // Set focus to section title for accessibility
+                    const title = section.querySelector('.section-title');
+                    if (title) title.focus({ preventScroll: true });
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        };
+
+        // Event delegation for navigation
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => switchSection(btn.dataset.section));
         });
 
         // Quiz Data
@@ -713,7 +840,7 @@
                     { text: "Wine, true crime documentary, and peace", type: "valerie" },
                     { text: "Planning next week's adventure while cuddling with my pet", type: "melanie" },
                     { text: "Starting the night at 10pm because that's when I come alive", type: "camille" },
-                    { text: "A cozy get-together with my favorite people", type: "you" }
+                    { text: "A cozy get-together with my favorite people", type: "zacha" }
                 ]
             },
             {
@@ -722,7 +849,7 @@
                     { text: "I'm there when it matters. Always. No questions asked.", type: "valerie" },
                     { text: "Planning unforgettable experiences and bringing back the best gifts", type: "melanie" },
                     { text: "Being my authentic self and encouraging them to do the same", type: "camille" },
-                    { text: "Thoughtful surprises that show I truly know them", type: "you" }
+                    { text: "Thoughtful surprises that show I truly know them", type: "zacha" }
                 ]
             },
             {
@@ -731,7 +858,7 @@
                     { text: "Italian countryside, good wine, rich history", type: "valerie" },
                     { text: "Somewhere new! I have a list of 50 places to visit", type: "melanie" },
                     { text: "Anywhere with great nightlife and amazing food", type: "camille" },
-                    { text: "Wherever my friends are going — it's about the company", type: "you" }
+                    { text: "Wherever my friends are going — it's about the company", type: "zacha" }
                 ]
             },
             {
@@ -740,7 +867,7 @@
                     { text: "Early pilates, then conquering the day", type: "valerie" },
                     { text: "Up with my alarm, walking my fur baby, ready for anything", type: "melanie" },
                     { text: "Morning? I just went to sleep. Ask me again at noon.", type: "camille" },
-                    { text: "Depends on the day, but always with intention", type: "you" }
+                    { text: "Depends on the day, but always with intention", type: "zacha" }
                 ]
             },
             {
@@ -749,7 +876,7 @@
                     { text: "Dark and unexpected — if they're not slightly shocked, I failed", type: "valerie" },
                     { text: "Silly and fun — I love making people laugh at game nights", type: "melanie" },
                     { text: "Dry wit with a fashion statement", type: "camille" },
-                    { text: "Warm and inclusive — I want everyone to feel in on the joke", type: "you" }
+                    { text: "Warm and inclusive — I want everyone to feel in on the joke", type: "zacha" }
                 ]
             },
             {
@@ -758,7 +885,7 @@
                     { text: "A challenging workout that makes me feel powerful", type: "valerie" },
                     { text: "Quality time with family and my pet", type: "melanie" },
                     { text: "A sweet treat and staying up late doing what I love", type: "camille" },
-                    { text: "Creating something beautiful for people I love", type: "you" }
+                    { text: "Creating something beautiful for people I love", type: "zacha" }
                 ]
             },
             {
@@ -767,7 +894,7 @@
                     { text: "Strong, reliable, secretly the sweetest", type: "valerie" },
                     { text: "Adventurous, fun, the best at organizing things", type: "melanie" },
                     { text: "Stylish, independent, living life on my own terms", type: "camille" },
-                    { text: "Thoughtful, creative, the heart of the group", type: "you" }
+                    { text: "Thoughtful, creative, the heart of the group", type: "zacha" }
                 ]
             },
             {
@@ -776,7 +903,7 @@
                     { text: "Loyalty that doesn't waver, even when times are hard", type: "valerie" },
                     { text: "Shared adventures and creating memories together", type: "melanie" },
                     { text: "Accepting each other exactly as we are", type: "camille" },
-                    { text: "The little moments that add up to a lifetime", type: "you" }
+                    { text: "The little moments that add up to a lifetime", type: "zacha" }
                 ]
             }
         ];
@@ -803,7 +930,7 @@
                 description: "You've mastered the art of being unapologetically yourself. Fashionably late? It's called making an entrance. Your independence inspires others, and your ability to find joy in any situation (and any menu!) is a superpower. The night is young when you arrive.",
                 traits: ["Independent", "Stylish", "Adaptable", "Authentic", "Night Owl"]
             },
-            you: {
+            zacha: {
                 emoji: "💝",
                 title: "The Radiant Heart",
                 subtitle: "Rare Beauty: Soft Pinch in \"Love\" • Sky High: Pink",
@@ -812,55 +939,164 @@
             }
         };
 
-        let currentQuestion = 0;
-        let answers = { valerie: 0, melanie: 0, camille: 0, you: 0 };
-        let selectedOption = null;
+        // Quiz State Management
+        const quizState = {
+            currentQuestion: 0,
+            answers: { valerie: 0, melanie: 0, camille: 0, zacha: 0 },
+            selectedOption: null,
 
-        function renderQuestion() {
-            const q = questions[currentQuestion];
-            document.getElementById('q-num').textContent = currentQuestion + 1;
-            document.getElementById('question-text').textContent = q.question;
-            
-            const optionsContainer = document.getElementById('options');
+            reset() {
+                this.currentQuestion = 0;
+                this.answers = { valerie: 0, melanie: 0, camille: 0, zacha: 0 };
+                this.selectedOption = null;
+                storage.remove(STORAGE_KEYS.QUIZ_PROGRESS);
+            },
+
+            save() {
+                storage.set(STORAGE_KEYS.QUIZ_PROGRESS, {
+                    currentQuestion: this.currentQuestion,
+                    answers: this.answers
+                });
+            },
+
+            load() {
+                const saved = storage.get(STORAGE_KEYS.QUIZ_PROGRESS);
+                if (saved) {
+                    this.currentQuestion = saved.currentQuestion;
+                    this.answers = saved.answers;
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        // Quiz Functions
+        const renderQuestion = () => {
+            const q = questions[quizState.currentQuestion];
+            const qNum = getElement('q-num');
+            const questionText = getElement('question-text');
+            const optionsContainer = getElement('options');
+            const progress = getElement('progress');
+            const nextBtn = getElement('next-btn');
+
+            qNum.textContent = quizState.currentQuestion + 1;
+            questionText.textContent = q.question;
+
+            // Update progress bar ARIA
+            progress.setAttribute('aria-valuenow', quizState.currentQuestion + 1);
+
+            // Render options using event delegation
             optionsContainer.innerHTML = '';
-            
+            const fragment = document.createDocumentFragment();
+
             q.options.forEach((opt, i) => {
                 const optEl = document.createElement('div');
                 optEl.className = 'option';
                 optEl.textContent = opt.text;
-                optEl.addEventListener('click', () => selectOption(i, opt.type));
-                optionsContainer.appendChild(optEl);
+                optEl.setAttribute('role', 'radio');
+                optEl.setAttribute('aria-checked', 'false');
+                optEl.setAttribute('tabindex', '0');
+                optEl.dataset.index = i;
+                optEl.dataset.type = opt.type;
+
+                // Keyboard support
+                optEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectOption(i, opt.type);
+                    }
+                });
+
+                fragment.appendChild(optEl);
             });
+
+            optionsContainer.appendChild(fragment);
 
             // Progress dots
-            const progress = document.getElementById('progress');
             progress.innerHTML = '';
-            for (let i = 0; i < questions.length; i++) {
+            const progressFragment = document.createDocumentFragment();
+
+            for (let i = 0; i < TOTAL_QUESTIONS; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'progress-dot';
-                if (i < currentQuestion) dot.classList.add('completed');
-                if (i === currentQuestion) dot.classList.add('active');
-                progress.appendChild(dot);
+                if (i < quizState.currentQuestion) dot.classList.add('completed');
+                if (i === quizState.currentQuestion) dot.classList.add('active');
+                progressFragment.appendChild(dot);
             }
 
-            selectedOption = null;
-            document.getElementById('next-btn').disabled = true;
-        }
+            progress.appendChild(progressFragment);
 
-        function selectOption(index, type) {
-            document.querySelectorAll('.option').forEach((opt, i) => {
-                opt.classList.toggle('selected', i === index);
+            quizState.selectedOption = null;
+            nextBtn.disabled = true;
+        };
+
+        const selectOption = (index, type) => {
+            const options = getAllElements('.option');
+            options.forEach((opt, i) => {
+                const isSelected = i === index;
+                opt.classList.toggle('selected', isSelected);
+                opt.setAttribute('aria-checked', isSelected);
             });
-            selectedOption = type;
-            document.getElementById('next-btn').disabled = false;
-        }
 
-        document.getElementById('next-btn').addEventListener('click', () => {
-            if (selectedOption) {
-                answers[selectedOption]++;
-                currentQuestion++;
-                
-                if (currentQuestion >= questions.length) {
+            quizState.selectedOption = type;
+            getElement('next-btn').disabled = false;
+        };
+
+        const showResult = () => {
+            const winner = Object.keys(quizState.answers).reduce((a, b) =>
+                quizState.answers[a] > quizState.answers[b] ? a : b
+            );
+            const result = results[winner];
+
+            // Save result to localStorage
+            storage.set(STORAGE_KEYS.LAST_RESULT, { type: winner, result, date: new Date().toISOString() });
+
+            const quizContainer = getElement('quiz-container');
+            const resultContainer = getElement('result-container');
+
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+
+            getElement('result-emoji').textContent = result.emoji;
+            getElement('result-title').textContent = result.title;
+            getElement('result-subtitle').textContent = result.subtitle;
+            getElement('result-description').textContent = result.description;
+
+            const traitsContainer = getElement('result-traits');
+            traitsContainer.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+
+            result.traits.forEach(trait => {
+                const tag = document.createElement('span');
+                tag.className = 'trait-tag';
+                tag.textContent = trait;
+                fragment.appendChild(tag);
+            });
+
+            traitsContainer.appendChild(fragment);
+
+            // Clear saved progress
+            storage.remove(STORAGE_KEYS.QUIZ_PROGRESS);
+        };
+
+        // Event Delegation for Options
+        const optionsContainer = getElement('options');
+        optionsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('option')) {
+                const index = parseInt(e.target.dataset.index);
+                const type = e.target.dataset.type;
+                selectOption(index, type);
+            }
+        });
+
+        // Next button handler
+        getElement('next-btn').addEventListener('click', () => {
+            if (quizState.selectedOption) {
+                quizState.answers[quizState.selectedOption]++;
+                quizState.currentQuestion++;
+                quizState.save();
+
+                if (quizState.currentQuestion >= TOTAL_QUESTIONS) {
                     showResult();
                 } else {
                     renderQuestion();
@@ -868,37 +1104,21 @@
             }
         });
 
-        function showResult() {
-            const winner = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
-            const result = results[winner];
-
-            document.getElementById('quiz-container').classList.add('hidden');
-            document.getElementById('result-container').classList.remove('hidden');
-
-            document.getElementById('result-emoji').textContent = result.emoji;
-            document.getElementById('result-title').textContent = result.title;
-            document.getElementById('result-subtitle').textContent = result.subtitle;
-            document.getElementById('result-description').textContent = result.description;
-
-            const traitsContainer = document.getElementById('result-traits');
-            traitsContainer.innerHTML = '';
-            result.traits.forEach(trait => {
-                const tag = document.createElement('span');
-                tag.className = 'trait-tag';
-                tag.textContent = trait;
-                traitsContainer.appendChild(tag);
-            });
-        }
-
-        document.getElementById('retake-btn').addEventListener('click', () => {
-            currentQuestion = 0;
-            answers = { valerie: 0, melanie: 0, camille: 0, you: 0 };
-            document.getElementById('quiz-container').classList.remove('hidden');
-            document.getElementById('result-container').classList.add('hidden');
+        // Retake button handler
+        getElement('retake-btn').addEventListener('click', () => {
+            quizState.reset();
+            getElement('quiz-container').classList.remove('hidden');
+            getElement('result-container').classList.add('hidden');
             renderQuestion();
         });
 
-        renderQuestion();
+        // Initialize quiz (load saved progress if exists)
+        if (quizState.load() && quizState.currentQuestion < TOTAL_QUESTIONS) {
+            renderQuestion();
+        } else {
+            quizState.reset();
+            renderQuestion();
+        }
 
         // Quotes
         const quotes = [
@@ -938,15 +1158,27 @@
             { text: "The best things in life aren't things. They're your people.", author: "For Us 💕", type: "🌟 Our Story" }
         ];
 
-        function showRandomQuote() {
+        // Quote Functions
+        const showRandomQuote = () => {
             const quote = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById('quote-text').textContent = quote.text;
-            document.getElementById('quote-author').textContent = "— " + quote.author;
-            document.getElementById('quote-type').textContent = quote.type;
-        }
+            const quoteText = getElement('quote-text');
+            const quoteAuthor = getElement('quote-author');
+            const quoteType = getElement('quote-type');
 
+            quoteText.textContent = quote.text;
+            quoteAuthor.textContent = `— ${quote.author}`;
+            quoteType.textContent = quote.type;
+
+            // Add fade animation
+            quoteText.style.animation = 'none';
+            setTimeout(() => {
+                quoteText.style.animation = 'fadeInUp 0.5s ease-out';
+            }, 10);
+        };
+
+        // Initialize quotes
         showRandomQuote();
-        document.getElementById('new-quote-btn').addEventListener('click', showRandomQuote);
+        getElement('new-quote-btn').addEventListener('click', showRandomQuote);
     </script>
 </body>
 </html>
