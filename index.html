@@ -714,7 +714,7 @@
                     <div class="friend-header">
                         <div class="friend-avatar" aria-hidden="true">💝</div>
                         <div>
-                            <h3 class="friend-name">You</h3>
+                            <h3 class="friend-name">Zacha</h3>
                             <p class="friend-title">The Heart Who Made This</p>
                         </div>
                     </div>
@@ -840,7 +840,7 @@
                     { text: "Wine, true crime documentary, and peace", type: "valerie" },
                     { text: "Planning next week's adventure while cuddling with my pet", type: "melanie" },
                     { text: "Starting the night at 10pm because that's when I come alive", type: "camille" },
-                    { text: "A cozy get-together with my favorite people", type: "you" }
+                    { text: "A cozy get-together with my favorite people", type: "zacha" }
                 ]
             },
             {
@@ -849,7 +849,7 @@
                     { text: "I'm there when it matters. Always. No questions asked.", type: "valerie" },
                     { text: "Planning unforgettable experiences and bringing back the best gifts", type: "melanie" },
                     { text: "Being my authentic self and encouraging them to do the same", type: "camille" },
-                    { text: "Thoughtful surprises that show I truly know them", type: "you" }
+                    { text: "Thoughtful surprises that show I truly know them", type: "zacha" }
                 ]
             },
             {
@@ -858,7 +858,7 @@
                     { text: "Italian countryside, good wine, rich history", type: "valerie" },
                     { text: "Somewhere new! I have a list of 50 places to visit", type: "melanie" },
                     { text: "Anywhere with great nightlife and amazing food", type: "camille" },
-                    { text: "Wherever my friends are going — it's about the company", type: "you" }
+                    { text: "Wherever my friends are going — it's about the company", type: "zacha" }
                 ]
             },
             {
@@ -867,7 +867,7 @@
                     { text: "Early pilates, then conquering the day", type: "valerie" },
                     { text: "Up with my alarm, walking my fur baby, ready for anything", type: "melanie" },
                     { text: "Morning? I just went to sleep. Ask me again at noon.", type: "camille" },
-                    { text: "Depends on the day, but always with intention", type: "you" }
+                    { text: "Depends on the day, but always with intention", type: "zacha" }
                 ]
             },
             {
@@ -876,7 +876,7 @@
                     { text: "Dark and unexpected — if they're not slightly shocked, I failed", type: "valerie" },
                     { text: "Silly and fun — I love making people laugh at game nights", type: "melanie" },
                     { text: "Dry wit with a fashion statement", type: "camille" },
-                    { text: "Warm and inclusive — I want everyone to feel in on the joke", type: "you" }
+                    { text: "Warm and inclusive — I want everyone to feel in on the joke", type: "zacha" }
                 ]
             },
             {
@@ -885,7 +885,7 @@
                     { text: "A challenging workout that makes me feel powerful", type: "valerie" },
                     { text: "Quality time with family and my pet", type: "melanie" },
                     { text: "A sweet treat and staying up late doing what I love", type: "camille" },
-                    { text: "Creating something beautiful for people I love", type: "you" }
+                    { text: "Creating something beautiful for people I love", type: "zacha" }
                 ]
             },
             {
@@ -894,7 +894,7 @@
                     { text: "Strong, reliable, secretly the sweetest", type: "valerie" },
                     { text: "Adventurous, fun, the best at organizing things", type: "melanie" },
                     { text: "Stylish, independent, living life on my own terms", type: "camille" },
-                    { text: "Thoughtful, creative, the heart of the group", type: "you" }
+                    { text: "Thoughtful, creative, the heart of the group", type: "zacha" }
                 ]
             },
             {
@@ -903,7 +903,7 @@
                     { text: "Loyalty that doesn't waver, even when times are hard", type: "valerie" },
                     { text: "Shared adventures and creating memories together", type: "melanie" },
                     { text: "Accepting each other exactly as we are", type: "camille" },
-                    { text: "The little moments that add up to a lifetime", type: "you" }
+                    { text: "The little moments that add up to a lifetime", type: "zacha" }
                 ]
             }
         ];
@@ -930,7 +930,7 @@
                 description: "You've mastered the art of being unapologetically yourself. Fashionably late? It's called making an entrance. Your independence inspires others, and your ability to find joy in any situation (and any menu!) is a superpower. The night is young when you arrive.",
                 traits: ["Independent", "Stylish", "Adaptable", "Authentic", "Night Owl"]
             },
-            you: {
+            zacha: {
                 emoji: "💝",
                 title: "The Radiant Heart",
                 subtitle: "Rare Beauty: Soft Pinch in \"Love\" • Sky High: Pink",
@@ -942,12 +942,12 @@
         // Quiz State Management
         const quizState = {
             currentQuestion: 0,
-            answers: { valerie: 0, melanie: 0, camille: 0, you: 0 },
+            answers: { valerie: 0, melanie: 0, camille: 0, zacha: 0 },
             selectedOption: null,
 
             reset() {
                 this.currentQuestion = 0;
-                this.answers = { valerie: 0, melanie: 0, camille: 0, you: 0 };
+                this.answers = { valerie: 0, melanie: 0, camille: 0, zacha: 0 };
                 this.selectedOption = null;
                 storage.remove(STORAGE_KEYS.QUIZ_PROGRESS);
             },
